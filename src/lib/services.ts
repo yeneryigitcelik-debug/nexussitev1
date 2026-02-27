@@ -158,15 +158,23 @@ export const services: Service[] = [
   },
 ];
 
-export const partners = [
-  { name: "Allianz", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Allianz_logo.svg/200px-Allianz_logo.svg.png" },
-  { name: "Axa Sigorta", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/AXA_Logo.svg/200px-AXA_Logo.svg.png" },
-  { name: "HDI Sigorta", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/HDI_logo.svg/200px-HDI_logo.svg.png" },
-  { name: "Sompo Sigorta", logo: "https://logowik.com/content/uploads/images/sompo-japan-sigorta3288.logowik.com.webp" },
-  { name: "Zurich Sigorta", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Zurich_Insurance_Group_logo.svg/200px-Zurich_Insurance_Group_logo.svg.png" },
-  { name: "Mapfre Sigorta", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Mapfre_logo.svg/200px-Mapfre_logo.svg.png" },
-  { name: "Anadolu Sigorta", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Anadolu_Sigorta_logo.svg/200px-Anadolu_Sigorta_logo.svg.png" },
-  { name: "Groupama", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Groupama_logo.svg/200px-Groupama_logo.svg.png" },
+export interface Partner {
+  name: string;
+  logo: string;
+  desc: string;
+}
+
+export const partners: Partner[] = [
+  { name: "Allianz", logo: "/cozumortaklari/Allianz_SDG-Kurum-Logo21312.png", desc: "Yetkili Acente" },
+  { name: "Anadolu Sigorta", logo: "/cozumortaklari/Anadolu_Sigorta_logo.svg-1-1024x283.png", desc: "Yetkili Acente" },
+  { name: "Gulf Sigorta", logo: "/cozumortaklari/Gulf-Sigorta.png", desc: "Yetkili Acente" },
+  { name: "Quick Sigorta", logo: "/cozumortaklari/logo_quicksigorta_1x.webp", desc: "Yetkili Acente" },
+  { name: "Sompo Sigorta", logo: "/cozumortaklari/sompo_sigorta_logo_sm-1435e4bc-d (1).png", desc: "Yetkili Acente" },
+  { name: "Türkiye Sigorta", logo: "/cozumortaklari/ts-slogansiz-1-e1728740452484.png", desc: "Yetkili Acente" },
+  { name: "PTT AVM", logo: "/cozumortaklari/pttavm-logo.72e4a21.svg", desc: "Elektronik ürünlerin uzatılmış garantisi ve kazaen zarar sigortaları" },
+  { name: "A101", logo: "/cozumortaklari/a101--1024x701.jpg", desc: "Elektronik ürünlerin uzatılmış garantisi ve kazaen zarar sigorta poliçeleri" },
+  { name: "Itopya", logo: "/cozumortaklari/Itopya_bilgisayar_logo.png", desc: "İtopik Garanti 1 yıllık paket" },
+  { name: "Diğer", logo: "/cozumortaklari/WhatsApp-Image-2024-11-14-at-21.10.27-1024x665.jpeg", desc: "Yetkili Acente" },
 ];
 
 export function getServiceBySlug(slug: string) {
