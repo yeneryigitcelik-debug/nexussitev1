@@ -4,6 +4,7 @@ import Link from "next/link";
 const kurumsalLinks = [
   { label: "Hakkımızda", href: "/#about" },
   { label: "Hizmetlerimiz", href: "/hizmetler" },
+  { label: "Blog", href: "/blog" },
   { label: "Neden Biz", href: "/#why" },
   { label: "İletişim", href: "/#contact" },
 ];

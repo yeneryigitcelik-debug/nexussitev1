@@ -15,6 +15,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Ana Sayfa", href: "/" },
   { label: "Hakkımızda", href: "#about" },
   { label: "Hizmetler", href: "/hizmetler" },
+  { label: "Blog", href: "/blog" },
   { label: "İletişim", href: "#contact" },
 ];
 
