@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   description:
     "Nexus Sigorta Aracılık Hizmetleri - 10 yıllık deneyim ile kurumsal ve bireysel sigorta çözümleri. İstanbul Ataşehir.",
   icons: {
-    icon: "/nexus-logo-master.png",
-    apple: "/nexus-logo-master.png",
+    icon: "/nexuslogoseffaf.png",
+    apple: "/nexuslogoseffaf.png",
   },
 };
 

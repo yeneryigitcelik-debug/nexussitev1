@@ -19,7 +19,7 @@ export const services: Service[] = [
     description: "Zorunlu trafik sigortası ile aracınızı ve üçüncü şahısları koruma altına alın.",
     longDescription: "Zorunlu Trafik Sigortası, motorlu araç sahiplerinin üçüncü şahıslara verebilecekleri maddi ve bedeni zararları güvence altına alan yasal bir sigorta türüdür. Nexus Sigorta olarak 36 çözüm ortağımız arasından size en uygun trafik sigortası teklifini sunuyoruz.",
     icon: "car",
-    image: "https://images.unsplash.com/photo-1449965408869-ebd13bc9e5a8?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80",
     category: "kurumsal",
     features: ["Uygun Fiyat Garantisi", "Hızlı Poliçe Düzenleme", "7/24 Hasar Desteği", "Online Teklif"],
     coverages: ["Maddi Hasar Teminatı", "Bedeni Hasar Teminatı", "Ölüm Teminatı", "Sağlık Giderleri"]
@@ -43,7 +43,7 @@ export const services: Service[] = [
     description: "İşyerinizi ve varlıklarınızı yangın riskine karşı güvence altına alın.",
     longDescription: "Yangın Sigortası, işyerinizi, evinizi ve değerli varlıklarınızı yangın, yıldırım, infilak gibi risklere karşı koruma altına alan önemli bir sigorta türüdür.",
     icon: "flame",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
     category: "kurumsal",
     features: ["Kapsamlı Teminat", "Hızlı Hasar Ödemesi", "Ek Teminat Seçenekleri", "Uygun Primler"],
     coverages: ["Yangın Teminatı", "Yıldırım Teminatı", "İnfilak Teminatı", "Dahili Su Hasarı"]
@@ -162,19 +162,81 @@ export interface Partner {
   name: string;
   logo: string;
   desc: string;
+  work: string;
+  tags: string[];
 }
 
 export const partners: Partner[] = [
-  { name: "Allianz", logo: "/cozumortaklari/Allianz_SDG-Kurum-Logo21312.png", desc: "Yetkili Acente" },
-  { name: "Anadolu Sigorta", logo: "/cozumortaklari/Anadolu_Sigorta_logo.svg-1-1024x283.png", desc: "Yetkili Acente" },
-  { name: "Gulf Sigorta", logo: "/cozumortaklari/Gulf-Sigorta.png", desc: "Yetkili Acente" },
-  { name: "Quick Sigorta", logo: "/cozumortaklari/logo_quicksigorta_1x.webp", desc: "Yetkili Acente" },
-  { name: "Sompo Sigorta", logo: "/cozumortaklari/sompo_sigorta_logo_sm-1435e4bc-d (1).png", desc: "Yetkili Acente" },
-  { name: "Türkiye Sigorta", logo: "/cozumortaklari/ts-slogansiz-1-e1728740452484.png", desc: "Yetkili Acente" },
-  { name: "PTT AVM", logo: "/cozumortaklari/pttavm-logo.72e4a21.svg", desc: "Elektronik ürünlerin uzatılmış garantisi ve kazaen zarar sigortaları" },
-  { name: "A101", logo: "/cozumortaklari/a101--1024x701.jpg", desc: "Elektronik ürünlerin uzatılmış garantisi ve kazaen zarar sigorta poliçeleri" },
-  { name: "Itopya", logo: "/cozumortaklari/Itopya_bilgisayar_logo.png", desc: "İtopik Garanti 1 yıllık paket" },
-  { name: "Diğer", logo: "/cozumortaklari/WhatsApp-Image-2024-11-14-at-21.10.27-1024x665.jpeg", desc: "Yetkili Acente" },
+  {
+    name: "Allianz",
+    logo: "/cozumortaklari/Allianz_SDG-Kurum-Logo21312.png",
+    desc: "Yetkili Acente",
+    work: "Allianz ile trafik, kasko, konut, işyeri ve sağlık sigortası alanlarında yetkili acentelik hizmeti veriyoruz. Geniş teminat seçenekleri ve hızlı hasar süreçleriyle müşterilerimize güvence sağlıyoruz.",
+    tags: ["Trafik", "Kasko", "Sağlık", "Konut"],
+  },
+  {
+    name: "Anadolu Sigorta",
+    logo: "/cozumortaklari/Anadolu_Sigorta_logo.svg-1-1024x283.png",
+    desc: "Yetkili Acente",
+    work: "Türkiye'nin köklü sigorta markası Anadolu Sigorta ile kurumsal ve bireysel tüm branşlarda poliçe düzenliyoruz. Yangın, mühendislik ve sorumluluk sigortalarında güçlü çözümler sunuyoruz.",
+    tags: ["Kurumsal", "Yangın", "Mühendislik", "Sorumluluk"],
+  },
+  {
+    name: "Gulf Sigorta",
+    logo: "/cozumortaklari/Gulf-Sigorta.png",
+    desc: "Yetkili Acente",
+    work: "Gulf Sigorta ile özellikle araç sigortaları ve bireysel ürünlerde rekabetçi fiyatlarla poliçe sunuyoruz. Hızlı teklif ve kolay poliçe süreçleriyle müşteri memnuniyetini ön planda tutuyoruz.",
+    tags: ["Trafik", "Kasko", "Bireysel"],
+  },
+  {
+    name: "Quick Sigorta",
+    logo: "/cozumortaklari/logo_quicksigorta_1x.webp",
+    desc: "Yetkili Acente",
+    work: "Quick Sigorta ile dijital odaklı, hızlı ve pratik sigorta çözümleri sunuyoruz. Özellikle online poliçe düzenleme ve anlık teklif alma süreçlerinde güçlü bir iş birliği yürütüyoruz.",
+    tags: ["Dijital", "Hızlı Poliçe", "Online"],
+  },
+  {
+    name: "Sompo Sigorta",
+    logo: "/cozumortaklari/sompo_sigorta_logo_sm-1435e4bc-d (1).png",
+    desc: "Yetkili Acente",
+    work: "Japon kökenli Sompo Sigorta ile kasko, trafik ve işyeri sigortalarında kapsamlı teminatlar sunuyoruz. Uluslararası standartlarda hizmet kalitesiyle müşterilerimizin yanındayız.",
+    tags: ["Kasko", "Trafik", "İşyeri"],
+  },
+  {
+    name: "Türkiye Sigorta",
+    logo: "/cozumortaklari/ts-slogansiz-1-e1728740452484.png",
+    desc: "Yetkili Acente",
+    work: "Türkiye Sigorta ile tüm branşlarda geniş kapsamlı poliçeler düzenliyoruz. Devlet güvencesindeki bu marka ile özellikle DASK, konut ve tarım sigortalarında güçlü çözümler sunuyoruz.",
+    tags: ["DASK", "Konut", "Tarım", "Tüm Branşlar"],
+  },
+  {
+    name: "PTT AVM",
+    logo: "/cozumortaklari/pttavm-logo.72e4a21.svg",
+    desc: "E-Ticaret Ortağı",
+    work: "PTT AVM üzerinden satılan elektronik ürünler için uzatılmış garanti ve kazaen zarar sigortaları düzenliyoruz. Müşterilerin ürünlerini satın alma anında kolayca sigortalamalarını sağlıyoruz.",
+    tags: ["Uzatılmış Garanti", "Elektronik", "E-Ticaret"],
+  },
+  {
+    name: "A101",
+    logo: "/cozumortaklari/a101--1024x701.jpg",
+    desc: "Perakende Ortağı",
+    work: "A101 mağazalarında satılan elektronik ürünler için uzatılmış garanti ve kazaen zarar sigorta poliçeleri sunuyoruz. Uygun fiyatlı koruma paketleriyle tüketicilerin cihazlarını güvence altına alıyoruz.",
+    tags: ["Uzatılmış Garanti", "Cihaz Sigortası", "Perakende"],
+  },
+  {
+    name: "Itopya",
+    logo: "/cozumortaklari/Itopya_bilgisayar_logo.png",
+    desc: "Teknoloji Ortağı",
+    work: "Itopya ile İtopik Garanti kapsamında bilgisayar ve teknoloji ürünleri için 1 yıllık ek garanti paketleri sunuyoruz. Yüksek değerli teknolojik cihazlar için kapsamlı koruma sağlıyoruz.",
+    tags: ["İtopik Garanti", "Bilgisayar", "Teknoloji"],
+  },
+  {
+    name: "Diğer",
+    logo: "/cozumortaklari/WhatsApp-Image-2024-11-14-at-21.10.27-1024x665.jpeg",
+    desc: "Yetkili Acente",
+    work: "30'dan fazla sigorta şirketi ile çalışarak müşterilerimize en geniş ürün yelpazesini ve en rekabetçi fiyatları sunuyoruz. Her ihtiyaca özel çözüm üretiyoruz.",
+    tags: ["30+ Şirket", "Geniş Yelpazer", "Özel Çözüm"],
+  },
 ];
 
 export function getServiceBySlug(slug: string) {

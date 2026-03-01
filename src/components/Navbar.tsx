@@ -13,8 +13,9 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Ana Sayfa", href: "/" },
-  { label: "Hakkımızda", href: "#about" },
+  { label: "Hakkımızda", href: "/hakkimizda" },
   { label: "Hizmetler", href: "/hizmetler" },
+  { label: "Çözüm Merkezi", href: "/cozum-merkezi" },
   { label: "Blog", href: "/blog" },
   { label: "İletişim", href: "#contact" },
 ];
@@ -124,9 +125,9 @@ export function Navbar() {
             : "bg-white"
         }`}
       >
-        <nav className="mx-auto flex h-[80px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10" aria-label="Ana gezinme">
+        <nav className="mx-auto flex h-[68px] sm:h-[68px] sm:h-[80px] max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-10" aria-label="Ana gezinme">
           <Link href="/" className="relative z-50 flex shrink-0 items-center" aria-label="Nexus Sigorta ana sayfa">
-            <Image src="/nexus-logo-master.png" alt="Nexus Sigorta" width={280} height={120} className="h-[52px] w-auto" priority />
+            <Image src="/nexus-logo-master.png" alt="Nexus Sigorta" width={280} height={120} className="h-[40px] sm:h-[52px] w-auto" priority />
           </Link>
 
           {/* Desktop Links */}
@@ -171,13 +172,13 @@ export function Navbar() {
 
             <motion.div key="mobile-panel" variants={mobileMenuVariants} initial="hidden" animate="visible" exit="exit"
               className="fixed inset-y-0 right-0 z-[95] flex w-full max-w-sm flex-col bg-white border-l border-black/[0.06] shadow-[-8px_0_40px_rgba(0,0,0,0.08)] lg:hidden">
-              <div className="h-[80px] shrink-0" />
+              <div className="h-[68px] sm:h-[80px] shrink-0" />
               <motion.div variants={mobileLinkContainerVariants} initial="hidden" animate="visible" exit="exit"
                 className="flex flex-1 flex-col gap-1 overflow-y-auto px-6 py-6">
                 {NAV_LINKS.map((link) => (
                   <motion.div key={link.href} variants={mobileLinkVariants}>
                     {renderLink(link,
-                      `block rounded-xl px-4 py-3.5 font-[family-name:var(--font-syne)] text-[22px] text-black/60 transition-colors duration-200 hover:bg-black/[0.03] hover:text-black ${
+                      `block rounded-xl px-4 py-3.5 font-[family-name:var(--font-syne)] text-[18px] sm:text-[22px] text-black/60 transition-colors duration-200 hover:bg-black/[0.03] hover:text-black ${
                         isActiveLink(link.href, pathname) ? "!text-brand bg-brand/[0.06]" : ""
                       }`,
                       closeMobile,
@@ -196,7 +197,7 @@ export function Navbar() {
 
                 <motion.div variants={mobileLinkVariants} className="mt-2">
                   <a href={`tel:${PHONE_NUMBER}`}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-black/40 transition-colors hover:bg-black/[0.03] hover:text-black">
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-black/60 transition-colors hover:bg-black/[0.03] hover:text-black">
                     <PhoneIcon className="h-5 w-5" />
                     <span className="text-[15px] font-medium">0533 251 67 73</span>
                   </a>
@@ -207,7 +208,7 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      <div className="h-[80px]" />
+      <div className="h-[68px] sm:h-[80px]" />
     </>
   );
 }

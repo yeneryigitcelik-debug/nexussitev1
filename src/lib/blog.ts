@@ -22,36 +22,54 @@ export const categories = [
 export const blogPosts: BlogPost[] = [
   {
     slug: "kasko-ve-trafik-sigortasi-farklari",
-    title: "Kasko ve Trafik Sigortası Arasındaki Farklar",
-    excerpt: "Kasko ve trafik sigortası arasındaki temel farkları, teminat kapsamlarını ve hangisinin size uygun olduğunu detaylı olarak inceliyoruz.",
+    title: "Kasko ve Trafik Sigortası Arasındaki Farklar: 2025 Güncel Rehber",
+    excerpt: "Kasko ile zorunlu trafik sigortası arasındaki farkları, teminat kapsamlarını, fiyat farklılıklarını ve hangisini yaptırmanız gerektiğini detaylı karşılaştırmalı rehberimizle öğrenin.",
     content: `
-      <p>Araç sahiplerinin en çok merak ettiği konuların başında kasko ve trafik sigortası arasındaki farklar gelir. Her iki sigorta da araç sahipleri için büyük önem taşırken, kapsam ve zorunluluk açısından birbirinden oldukça farklıdır.</p>
+      <p>Türkiye'de trafiğe çıkan her motorlu araç sahibinin en çok sorduğu sorulardan biri "Kasko mu yaptırayım, trafik sigortası yeterli mi?" sorusudur. Her iki sigorta türü de araç sahipleri için kritik önem taşımakla birlikte, <strong>kapsam, zorunluluk, fiyatlandırma ve hasar süreçleri</strong> açısından birbirinden oldukça farklıdır. Bu rehberde tüm farkları detaylı olarak inceliyoruz.</p>
 
-      <h2>Trafik Sigortası Nedir?</h2>
-      <p>Zorunlu Trafik Sigortası, adından da anlaşılacağı üzere yasal olarak yaptırılması zorunlu olan bir sigorta türüdür. Motorlu araç sahiplerinin, araçlarının üçüncü şahıslara verebileceği maddi ve bedeni zararları karşılamak amacıyla yaptırılır. Trafik sigortası sadece karşı tarafın zararlarını karşılar; kendi aracınızdaki hasarları kapsamaz.</p>
+      <h2>Zorunlu Trafik Sigortası Nedir?</h2>
+      <p>Zorunlu Trafik Sigortası, 2918 sayılı Karayolları Trafik Kanunu gereğince trafiğe çıkan her motorlu araç sahibinin yaptırmak zorunda olduğu bir sigorta türüdür. Temel amacı, aracınızın üçüncü şahıslara (karşı tarafa) verebileceği <strong>maddi ve bedeni zararları</strong> karşılamaktır.</p>
+      <p>Trafik sigortasının en önemli özelliği, <strong>yalnızca karşı tarafın zararlarını</strong> karşılamasıdır. Kendi aracınızdaki hasar, trafik sigortası kapsamında değildir. Teminat limitleri her yıl Hazine ve Maliye Bakanlığı tarafından belirlenir ve tüm sigorta şirketleri için asgari limitler sabittir.</p>
 
       <h2>Kasko Sigortası Nedir?</h2>
-      <p>Kasko sigortası ise isteğe bağlı bir sigorta türüdür. Aracınızın kaza, hırsızlık, doğal afet, vandalizm gibi risklere karşı korunmasını sağlar. Trafik sigortasından farklı olarak, kendi aracınızdaki hasarları da karşılar.</p>
+      <p>Kasko sigortası, isteğe bağlı (ihtiyari) bir sigorta türüdür ve <strong>kendi aracınızı</strong> çeşitli risklere karşı koruma altına alır. Çarpma, çarpışma, devrilme, yanma, çalınma, doğal afetler (dolu, sel, fırtına), üçüncü kişilerin kötü niyetli hareketleri gibi geniş bir risk yelpazesine karşı teminat sağlar.</p>
+      <p>Kasko poliçeleri, ana teminatların yanı sıra <strong>İhtiyari Mali Mesuliyet (IMM), ferdi kaza, hukuksal koruma, ikame araç, mini onarım ve cam hasarı</strong> gibi ek teminatlarla da zenginleştirilebilir.</p>
 
-      <h2>Temel Farklar</h2>
+      <h2>Kasko ve Trafik Sigortası Karşılaştırma Tablosu</h2>
       <ul>
-        <li><strong>Zorunluluk:</strong> Trafik sigortası zorunlu, kasko isteğe bağlıdır.</li>
-        <li><strong>Kapsam:</strong> Trafik sigortası sadece karşı tarafın zararlarını, kasko kendi aracınızın zararlarını da karşılar.</li>
-        <li><strong>Teminat Limitleri:</strong> Trafik sigortasında limitler devlet tarafından belirlenir, kaskoda poliçeye göre değişir.</li>
-        <li><strong>Fiyat:</strong> Kasko primleri genellikle trafik sigortasından daha yüksektir.</li>
+        <li><strong>Zorunluluk:</strong> Trafik sigortası yasal olarak zorunludur. Kasko ise tamamen isteğe bağlıdır, ancak özellikle yeni ve değerli araçlar için şiddetle tavsiye edilir.</li>
+        <li><strong>Teminat Kapsamı:</strong> Trafik sigortası yalnızca karşı tarafın zararlarını karşılar. Kasko ise kendi aracınızdaki hasarları da teminat altına alır.</li>
+        <li><strong>Teminat Limitleri:</strong> Trafik sigortasında asgari limitler devlet tarafından belirlenir. Kaskoda ise limitler aracın kasko değerine ve seçilen teminatlara göre poliçeyle belirlenir.</li>
+        <li><strong>Fiyatlandırma:</strong> Trafik sigortası primleri genellikle daha düşüktür. Kasko primleri aracın markası, modeli, yaşı, hasarsızlık kademesi ve seçilen ek teminatlara göre belirlenir.</li>
+        <li><strong>Doğal Afet Teminatı:</strong> Trafik sigortasında doğal afet teminatı bulunmaz. Kasko ise dolu, sel, fırtına, deprem gibi doğal afet hasarlarını karşılar.</li>
+        <li><strong>Hırsızlık Teminatı:</strong> Trafik sigortası hırsızlığı kapsamaz. Kasko, aracın çalınması veya çalınmaya teşebbüs durumunu teminat altına alır.</li>
+        <li><strong>Hasarsızlık İndirimi:</strong> Her iki sigorta türünde de hasarsız geçirilen yıllar için indirim uygulanır. Trafik sigortasında yıllık %5, toplamda %50'ye kadar indirim sağlanır.</li>
       </ul>
 
-      <h2>Hangisini Yaptırmalısınız?</h2>
-      <p>Trafik sigortası zaten zorunlu olduğu için mutlaka yaptırılmalıdır. Kasko ise özellikle yeni veya değerli araçlar için şiddetle tavsiye edilir. Nexus Sigorta olarak, 36 çözüm ortağımız arasından size en uygun kasko ve trafik sigortası teklifini sunuyoruz.</p>
+      <h2>Hangi Durumlarda Kasko Yaptırmalısınız?</h2>
+      <p>Kasko sigortası özellikle şu durumlarda büyük önem taşır:</p>
+      <ul>
+        <li>Aracınız sıfır veya 5 yaş altı ise</li>
+        <li>Aracınızın güncel piyasa değeri yüksekse</li>
+        <li>Aracınızı açık otoparkta bırakıyorsanız</li>
+        <li>Yoğun trafikli şehirlerde kullanıyorsanız</li>
+        <li>Dolu, sel gibi doğal afet riski yüksek bölgelerde yaşıyorsanız</li>
+        <li>Aracınız krediyle alınmışsa (çoğu banka kasko şartı arar)</li>
+      </ul>
 
-      <p>Aracınızın değeri, kullanım sıklığı ve park koşullarını değerlendirerek doğru seçimi yapmanızda size yardımcı olabiliriz. Ücretsiz teklif almak için bizimle iletişime geçin.</p>
+      <h2>Hasarsızlık İndirimi Nedir ve Nasıl Korunur?</h2>
+      <p>Hasarsızlık indirimi, her hasarsız geçen yıl için priminizde %5 oranında indirim sağlayan bir sistemdir. Trafik sigortasında 10 yılda toplamda <strong>%50'ye kadar</strong> indirim kazanabilirsiniz. Bu indirimi korumak için küçük çaplı hasarlarda onarım masrafını kendiniz karşılamayı değerlendirebilirsiniz.</p>
+
+      <h2>En Uygun Teklifi Nasıl Alırsınız?</h2>
+      <p>Nexus Sigorta olarak, <strong>36 çözüm ortağımız</strong> arasından karşılaştırmalı kasko ve trafik sigortası teklifi sunuyoruz. Aracınızın değeri, kullanım sıklığı, park koşulları ve hasarsızlık kademesini değerlendirerek sizin için en uygun ve kapsamlı poliçeyi bulmak için buradayız.</p>
+      <p>Ücretsiz teklif almak ve uzman danışmanlarımızla görüşmek için hemen <strong>0533 251 67 73</strong> numarasından bize ulaşın.</p>
     `,
     category: "Araç Sigortası",
     author: "Nexus Sigorta",
     date: "2025-01-15",
-    image: "https://images.unsplash.com/photo-1449965408869-ebd13bc9e5a8?w=800&q=80",
-    readTime: "5 dk",
-    tags: ["kasko", "trafik sigortası", "araç sigortası", "zorunlu sigorta"],
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80",
+    readTime: "8 dk",
+    tags: ["kasko", "trafik sigortası", "araç sigortası", "zorunlu sigorta", "kasko trafik farkı", "hasarsızlık indirimi"],
   },
   {
     slug: "saglik-sigortasi-secerken-dikkat-edilmesi-gerekenler",
@@ -118,37 +136,81 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "dask-nedir-neden-zorunludur",
-    title: "DASK Nedir ve Neden Zorunludur?",
-    excerpt: "Zorunlu Deprem Sigortası DASK hakkında bilmeniz gereken her şey: kapsamı, primleri, zorunluluğu ve başvuru süreci.",
+    title: "DASK Nedir, Neden Zorunludur? 2025 Güncel Bilgiler ve Teminat Kapsamı",
+    excerpt: "Zorunlu Deprem Sigortası DASK hakkında kapsamlı rehber: Nedir, neden zorunludur, neleri karşılar, prim hesaplama, teminat limitleri, başvuru süreci ve konut sigortasından farkları.",
     content: `
-      <p>Türkiye, deprem kuşağında yer alan bir ülke olarak ciddi deprem riski taşımaktadır. Bu nedenle 1999 depremi sonrasında kurulan DASK (Doğal Afet Sigortaları Kurumu), zorunlu deprem sigortası sistemiyle vatandaşları koruma altına almaktadır.</p>
+      <p>Türkiye, Kuzey Anadolu Fay Hattı ve Doğu Anadolu Fay Hattı başta olmak üzere aktif deprem kuşakları üzerinde yer alan bir ülkedir. Ülke topraklarının <strong>%96'sı deprem bölgesinde</strong>, nüfusun yaklaşık %98'i deprem riski altında yaşamaktadır. 17 Ağustos 1999 Marmara depremi sonrasında kurulan <strong>DASK (Doğal Afet Sigortaları Kurumu)</strong>, zorunlu deprem sigortası sistemiyle vatandaşların konutlarını deprem riskine karşı güvence altına almaktadır.</p>
 
-      <h2>DASK Nedir?</h2>
-      <p>DASK, Zorunlu Deprem Sigortası olarak da bilinen ve belediye sınırları içindeki konutlar için zorunlu olan bir sigorta sistemidir. Deprem ve depremin neden olduğu yangın, patlama, yer kayması gibi hasarları karşılar.</p>
+      <h2>DASK (Zorunlu Deprem Sigortası) Nedir?</h2>
+      <p>DASK, devlet güvencesiyle faaliyet gösteren ve belediye sınırları içindeki tüm konutlar için <strong>zorunlu olan deprem sigortası</strong> sistemidir. 27 Eylül 2000 tarihinde faaliyetlerine başlayan DASK, deprem ve depremin doğrudan neden olduğu <strong>yangın, patlama, devrilme, yer kayması ve tsunami</strong> gibi ikincil afet hasarlarını karşılar.</p>
+      <p>DASK, bir kamu kurumu niteliğindedir ve poliçeler yetkili sigorta şirketleri ve acenteleri aracılığıyla düzenlenir. Toplanan primler DASK havuzunda biriktirilir ve olası büyük deprem hasarlarının karşılanmasında kullanılır.</p>
 
-      <h2>Kimler DASK Yaptırmak Zorunda?</h2>
-      <p>Tapusu olan tüm konut sahipleri DASK yaptırmak zorundadır. DASK olmadan:</p>
+      <h2>DASK Neden Zorunludur?</h2>
+      <p>6305 sayılı Afet Sigortaları Kanunu gereğince, tapuya kayıtlı ve mesken olarak kullanılan bağımsız bölümler için DASK yaptırılması <strong>yasal zorunluluktur</strong>. DASK yaptırmamak ciddi sonuçlar doğurabilir:</p>
       <ul>
-        <li>Konut sigortası yaptıramazsınız</li>
-        <li>Tapu işlemleri gerçekleştirilemez</li>
-        <li>Deprem sonrası devlet yardımlarından yararlanamazsınız</li>
-        <li>Abonelik işlemleri yapılamayabilir</li>
+        <li><strong>Konut sigortası yaptıramazsınız:</strong> Hiçbir sigorta şirketi, DASK olmadan konut sigortası poliçesi düzenlemez.</li>
+        <li><strong>Tapu işlemleri yapılamaz:</strong> Konut alım-satım ve devir işlemlerinde geçerli DASK poliçesi aranır.</li>
+        <li><strong>Devlet yardımı alamazsınız:</strong> Deprem sonrası devlet tarafından sağlanan yardımlardan yararlanma hakkınız ortadan kalkar.</li>
+        <li><strong>Abonelik sorunları:</strong> Elektrik, su, doğalgaz gibi abonelik işlemlerinde DASK poliçesi talep edilebilir.</li>
+        <li><strong>Banka kredisi:</strong> Konut kredisi kullanırken bankalar geçerli DASK poliçesi ister.</li>
       </ul>
 
-      <h2>DASK Neleri Karşılar?</h2>
-      <p>DASK, binanın depremden kaynaklanan hasarını karşılar. Ancak eşya hasarları, iş kaybı ve alternatif barınma giderleri kapsam dışındadır. Bu nedenle DASK'a ek olarak kapsamlı bir konut sigortası yaptırmanız önerilir.</p>
+      <h2>DASK Teminat Kapsamı: Neleri Karşılar, Neleri Karşılamaz?</h2>
+      <p>DASK'ın teminat kapsamını doğru anlamak, beklentilerinizi yönetmeniz açısından önemlidir:</p>
+      <h3>DASK'ın Karşıladığı Hasarlar</h3>
+      <ul>
+        <li>Deprem sonucu binanın tamamen veya kısmen hasar görmesi</li>
+        <li>Depremin neden olduğu yangın hasarları</li>
+        <li>Deprem kaynaklı patlama hasarları</li>
+        <li>Depremden sonra meydana gelen yer kayması hasarları</li>
+        <li>Deprem kaynaklı tsunami hasarları</li>
+      </ul>
+      <h3>DASK Kapsamı Dışında Kalan Durumlar</h3>
+      <ul>
+        <li><strong>Eşya ve mobilya hasarları:</strong> Ev içindeki eşyalar DASK kapsamında değildir</li>
+        <li><strong>Alternatif barınma giderleri:</strong> Deprem sonrası otel, kira gibi masraflar karşılanmaz</li>
+        <li><strong>İş ve gelir kaybı:</strong> Çalışamama durumunda oluşan kayıplar kapsam dışıdır</li>
+        <li><strong>Manevi tazminat:</strong> Manevi kayıplar teminat altında değildir</li>
+        <li><strong>Enkaz kaldırma masrafları:</strong> Yıkılan binanın enkaz kaldırma giderleri karşılanmaz</li>
+      </ul>
+      <p>Bu nedenle <strong>DASK tek başına yeterli değildir</strong>. Kapsamlı bir konut sigortasıyla desteklenmesi şiddetle tavsiye edilir.</p>
 
       <h2>DASK Primi Nasıl Hesaplanır?</h2>
-      <p>DASK primi; konutun bulunduğu deprem bölgesi, yapı tarzı (çelik, betonarme, yığma vb.), brüt yüzölçümü ve inşa yılı gibi faktörlere göre hesaplanır. Primler son derece uygun tutarlardadır.</p>
+      <p>DASK primleri oldukça uygun tutarlardadır ve şu faktörlere göre hesaplanır:</p>
+      <ul>
+        <li><strong>Deprem Bölgesi:</strong> Konutun bulunduğu bölgenin deprem riski (1. derece, 2. derece vb.)</li>
+        <li><strong>Yapı Tarzı:</strong> Çelik/betonarme, yığma kagir, diğer yapı türleri</li>
+        <li><strong>Brüt Yüzölçümü (m²):</strong> Konutun toplam brüt alanı</li>
+        <li><strong>İnşa Yılı:</strong> Binanın yapım yılı ve deprem yönetmeliğine uygunluğu</li>
+        <li><strong>Kat Sayısı:</strong> Binanın toplam kat adedi</li>
+      </ul>
+      <p>DASK teminat limiti, her yıl güncellenen metrekare birim fiyatı ile konutun brüt alanı çarpılarak belirlenir. Azami teminat tutarı da yıldan yıla güncellenir.</p>
 
-      <p>Nexus Sigorta olarak DASK poliçenizi hızlı ve kolay bir şekilde düzenleyebiliriz. Detaylı bilgi için bizimle iletişime geçin.</p>
+      <h2>DASK ile Konut Sigortası Arasındaki Farklar</h2>
+      <ul>
+        <li><strong>Zorunluluk:</strong> DASK zorunlu, konut sigortası isteğe bağlıdır.</li>
+        <li><strong>Kapsam:</strong> DASK sadece deprem hasarını karşılar. Konut sigortası yangın, hırsızlık, su baskını, fırtına, cam kırılması gibi geniş bir risk yelpazesini kapsar.</li>
+        <li><strong>Eşya Teminatı:</strong> DASK eşyaları kapsamaz. Konut sigortası eşya teminatı sunar.</li>
+        <li><strong>Ek Teminatlar:</strong> Konut sigortası ferdi kaza, sorumluluk sigortası, kira kaybı gibi ek teminatlar sunabilir.</li>
+      </ul>
+      <p><strong>En doğru yaklaşım:</strong> DASK + kapsamlı konut sigortasını birlikte yaptırarak hem deprem hem de diğer risklere karşı tam güvence sağlamaktır.</p>
+
+      <h2>DASK Nasıl Yaptırılır?</h2>
+      <p>DASK poliçesi yaptırmak oldukça kolay ve hızlıdır. Gerekli bilgiler:</p>
+      <ul>
+        <li>UAVT adres kodu veya tapu bilgileri (ada-parsel)</li>
+        <li>Bina yapı tipi ve kat sayısı</li>
+        <li>Konutun brüt m² alanı</li>
+        <li>Sigortalının T.C. kimlik numarası</li>
+      </ul>
+      <p>Nexus Sigorta olarak DASK poliçenizi <strong>dakikalar içinde</strong> düzenleyebilir, konut sigortası ile birlikte kapsamlı bir güvence paketi oluşturabiliriz. Detaylı bilgi ve ücretsiz teklif için <strong>0533 251 67 73</strong> numarasından bize ulaşın.</p>
     `,
     category: "Konut & Yangın",
     author: "Nexus Sigorta",
     date: "2024-12-28",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
-    readTime: "6 dk",
-    tags: ["DASK", "deprem sigortası", "zorunlu sigorta", "konut"],
+    image: "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=800&q=80",
+    readTime: "10 dk",
+    tags: ["DASK", "deprem sigortası", "zorunlu sigorta", "konut", "deprem", "konut sigortası farkı", "teminat kapsamı"],
   },
   {
     slug: "isyeri-sigortasi-isletmenizi-koruyun",

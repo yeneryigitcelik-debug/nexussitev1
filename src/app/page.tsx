@@ -113,14 +113,20 @@ function Preloader() {
   );
 }
 
-/* ─── 3D Tilt Card ─── */
+/* ─── 3D Tilt Card (disabled on touch devices) ─── */
 function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 25 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 200, damping: 25 });
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(!window.matchMedia("(hover: hover)").matches);
+  }, []);
 
   function handleMove(e: ReactMouseEvent) {
+    if (isTouch) return;
     const rect = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width - 0.5);
     y.set((e.clientY - rect.top) / rect.height - 0.5);
@@ -129,7 +135,7 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 
   return (
     <motion.div
-      style={{ rotateX, rotateY, transformPerspective: 1000, transformStyle: "preserve-3d" }}
+      style={isTouch ? {} : { rotateX, rotateY, transformPerspective: 1000, transformStyle: "preserve-3d" }}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className={className}
@@ -238,6 +244,7 @@ export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [progress, setProgress] = useState(0);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activePartner, setActivePartner] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const heroRef = useRef(null);
   const progressRef = useRef(0);
@@ -286,18 +293,26 @@ export default function Home() {
 
   /* Brand reveal scroll */
   const brandRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const { scrollYProgress: brandScrollY } = useScroll({
     target: brandRef,
     offset: ["start start", "end end"],
   });
-  const brandTitleOpacity = useTransform(brandScrollY, [0.02, 0.15], [0, 1]);
-  const brandTitleY = useTransform(brandScrollY, [0.02, 0.15], [40, 0]);
-  const brandSubOpacity = useTransform(brandScrollY, [0.1, 0.25], [0, 1]);
-  const brandGlowScale = useTransform(brandScrollY, [0, 0.25, 0.5], [0.5, 1.2, 0.6]);
-  const brandGlowOpacity = useTransform(brandScrollY, [0.15, 0.35, 0.55], [0, 0.6, 0]);
-  const brandGridOpacity = useTransform(brandScrollY, [0.35, 0.55], [0, 1]);
-  const brandGridScale = useTransform(brandScrollY, [0.35, 0.55], [0.92, 1]);
-  const brandGridY = useTransform(brandScrollY, [0.35, 0.55], [60, 0]);
+  /* On mobile: all values default to fully visible (no scroll animation) */
+  const brandTitleOpacity = useTransform(brandScrollY, [0.02, 0.15], isMobile ? [1, 1] : [0, 1]);
+  const brandTitleY = useTransform(brandScrollY, [0.02, 0.15], isMobile ? [0, 0] : [40, 0]);
+  const brandSubOpacity = useTransform(brandScrollY, [0.1, 0.25], isMobile ? [1, 1] : [0, 1]);
+  const brandGlowScale = useTransform(brandScrollY, [0, 0.25, 0.5], isMobile ? [0, 0, 0] : [0.5, 1.2, 0.6]);
+  const brandGlowOpacity = useTransform(brandScrollY, [0.15, 0.35, 0.55], isMobile ? [0, 0, 0] : [0, 0.6, 0]);
+  const brandGridOpacity = useTransform(brandScrollY, [0.35, 0.55], isMobile ? [1, 1] : [0, 1]);
+  const brandGridScale = useTransform(brandScrollY, [0.35, 0.55], isMobile ? [1, 1] : [0.92, 1]);
+  const brandGridY = useTransform(brandScrollY, [0.35, 0.55], isMobile ? [0, 0] : [60, 0]);
 
   const slide = heroSlides[activeSlide];
 
@@ -393,11 +408,11 @@ export default function Home() {
                 </div>
 
                 {/* Animated heading — fixed height container */}
-                <div className="relative h-[120px] sm:h-[140px] md:h-[170px] lg:h-[200px] xl:h-[220px]">
+                <div className="relative h-[110px] sm:h-[140px] md:h-[200px] lg:h-[230px] xl:h-[270px] overflow-visible">
                   <AnimatePresence mode="wait">
                     <motion.h1
                       key={`title-${activeSlide}`}
-                      className="absolute inset-0 font-[family-name:var(--font-syne)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-extrabold leading-[0.95] tracking-tight"
+                      className="absolute inset-x-0 top-0 font-[family-name:var(--font-syne)] text-[2rem] sm:text-4xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-extrabold leading-[1.25] tracking-tight pb-2"
                     >
                       <motion.span
                         initial={{ opacity: 0, y: 80, filter: "blur(12px)" }}
@@ -422,7 +437,7 @@ export default function Home() {
                 </div>
 
                 {/* Animated subtitle — fixed height container */}
-                <div className="relative h-[80px] md:h-[72px] mt-8">
+                <div className="relative h-[90px] sm:h-[80px] md:h-[72px] mt-14 sm:mt-16 md:mt-18">
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={`sub-${activeSlide}`}
@@ -430,7 +445,7 @@ export default function Home() {
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
                       transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
-                      className="absolute inset-0 max-w-xl text-lg md:text-xl text-black/45 leading-relaxed glass-block"
+                      className="absolute inset-0 max-w-xl text-base sm:text-lg md:text-xl text-black/65 leading-relaxed glass-block"
                     >
                       {slide.desc}
                     </motion.p>
@@ -488,7 +503,7 @@ export default function Home() {
                       }`}>
                         {s.highlight}
                       </p>
-                      <p className="text-xs text-black/30 truncate mt-0.5">{s.title}</p>
+                      <p className="text-xs text-black/50 truncate mt-0.5">{s.title}</p>
                     </div>
 
                     {/* Progress bar for active */}
@@ -542,14 +557,14 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Mobile slide indicators */}
-            <div className="flex lg:hidden justify-center gap-2 mt-12">
+            {/* Mobile slide indicators — enlarged tap targets */}
+            <div className="flex lg:hidden justify-center gap-3 mt-10">
               {heroSlides.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goToSlide(i)}
-                  className="relative h-1.5 rounded-full overflow-hidden transition-all duration-500"
-                  style={{ width: i === activeSlide ? 48 : 16 }}
+                  className="relative h-2 rounded-full overflow-hidden transition-all duration-500"
+                  style={{ width: i === activeSlide ? 48 : 20, minHeight: 44, paddingTop: 20, paddingBottom: 20, marginTop: -20, marginBottom: -20 }}
                 >
                   <div className="absolute inset-0 bg-black/10 rounded-full" />
                   {i === activeSlide && (
@@ -575,7 +590,7 @@ export default function Home() {
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center gap-2"
             >
-              <span className="text-[10px] uppercase tracking-[0.2em] text-black/30 font-medium">Keşfet</span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-black/50 font-medium">Keşfet</span>
               <div className="w-5 h-9 rounded-full border border-brand/20 flex items-start justify-center p-1.5">
                 <motion.div
                   animate={{ y: [0, 12, 0] }}
@@ -601,7 +616,7 @@ export default function Home() {
               {[...marqueeTop, ...marqueeTop, ...marqueeTop, ...marqueeTop].map((item, i) => (
                 <span
                   key={`t-${i}`}
-                  className="flex items-center gap-5 mx-6 text-lg font-[family-name:var(--font-syne)] font-bold text-black/35 hover:text-brand/60 transition-colors duration-500 select-none"
+                  className="flex items-center gap-3 sm:gap-5 mx-4 sm:mx-6 text-sm sm:text-lg font-[family-name:var(--font-syne)] font-bold text-black/35 hover:text-brand/60 transition-colors duration-500 select-none"
                 >
                   {item}
                   <span className="w-2 h-2 rounded-full bg-brand/15 flex-shrink-0" />
@@ -616,7 +631,7 @@ export default function Home() {
               {[...marqueeBottom, ...marqueeBottom, ...marqueeBottom, ...marqueeBottom].map((item, i) => (
                 <span
                   key={`b-${i}`}
-                  className="flex items-center gap-5 mx-6 text-lg font-[family-name:var(--font-syne)] font-bold text-black/30 hover:text-brand/50 transition-colors duration-500 select-none"
+                  className="flex items-center gap-3 sm:gap-5 mx-4 sm:mx-6 text-sm sm:text-lg font-[family-name:var(--font-syne)] font-bold text-black/50 hover:text-brand/70 transition-colors duration-500 select-none"
                 >
                   {item}
                   <svg className="w-3 h-3 text-brand/10 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -631,7 +646,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════
             SERVICES — Bento Grid with mouse-position glow
             ═══════════════════════════════════════════════════════ */}
-        <section className="py-16 lg:py-24 bg-white relative overflow-hidden">
+        <section className="py-16 lg:py-24 bg-surface-2 relative overflow-hidden">
           <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
 
           {/* Ambient orbs */}
@@ -641,10 +656,10 @@ export default function Home() {
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="text-center mb-16 heading-decor">
               <div className="heading-ring" />
               <span className="section-label justify-center mb-5 block">Hizmetlerimiz</span>
-              <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl xl:text-6xl text-black font-bold leading-tight mb-4">
+              <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-black font-bold leading-tight mb-4">
                 Size özel <em className="gradient-text not-italic">sigorta çözümleri</em>
               </h2>
-              <p className="text-black/40 max-w-lg mx-auto glass-block inline-block">Kurumsal ve bireysel tüm sigorta ihtiyaçlarınız için kapsamlı paketler sunuyoruz.</p>
+              <p className="text-black/60 max-w-lg mx-auto glass-block inline-block">Kurumsal ve bireysel tüm sigorta ihtiyaçlarınız için kapsamlı paketler sunuyoruz.</p>
             </motion.div>
 
             {/* 2x2 Bento Grid with 3D Tilt */}
@@ -700,7 +715,7 @@ export default function Home() {
                   style={{ animation: "float-gentle 4s ease-in-out infinite" }}
                 >
                   <span className="font-[family-name:var(--font-syne)] text-lg font-bold gradient-text">10+</span>
-                  <span className="text-xs text-black/40 block">Yıllık Deneyim</span>
+                  <span className="text-xs text-black/60 block">Yıllık Deneyim</span>
                 </motion.div>
 
                 <motion.div
@@ -712,7 +727,7 @@ export default function Home() {
                   style={{ animation: "float-gentle 4s ease-in-out infinite 2s" }}
                 >
                   <span className="font-[family-name:var(--font-syne)] text-lg font-bold gradient-text">36+</span>
-                  <span className="text-xs text-black/40 block">Çözüm Ortağı</span>
+                  <span className="text-xs text-black/60 block">Çözüm Ortağı</span>
                 </motion.div>
 
                 <motion.div
@@ -724,7 +739,7 @@ export default function Home() {
                   style={{ animation: "float-gentle 4s ease-in-out infinite 4s" }}
                 >
                   <span className="font-[family-name:var(--font-syne)] text-lg font-bold text-green-600">%98</span>
-                  <span className="text-xs text-black/40 block">Memnuniyet</span>
+                  <span className="text-xs text-black/60 block">Memnuniyet</span>
                 </motion.div>
 
                 {/* Corner accent lines */}
@@ -742,33 +757,39 @@ export default function Home() {
                     Hakkımızda
                   </span>
 
-                  <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl xl:text-6xl text-black font-bold leading-[1.05] mb-6">
+                  <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-black font-bold leading-[1.05] mb-6">
                     Güvence altındaki{" "}
                     <em className="gradient-text not-italic">geleceğiniz</em>
                   </h2>
                 </div>
 
                 <div className="glass-block mb-4">
-                  <p className="text-lg text-black/50 leading-relaxed">
+                  <p className="text-lg text-black/65 leading-relaxed">
                     Nexus Sigorta olarak, 10 yılı aşkın deneyimimizle müşterilerimize en uygun
                     sigorta çözümlerini sunuyoruz. <span className="glass-capsule-gold !py-1 !px-3 !text-sm !rounded-lg text-brand-dark font-medium">36 çözüm ortağı</span> firmamız ile birlikte çalışarak,
                     her müşterimize özel poliçeler hazırlıyoruz.
                   </p>
                 </div>
-                <p className="text-black/40 leading-relaxed mb-8">
+                <p className="text-black/60 leading-relaxed mb-8">
                   Doğru poliçe seçimi, güvene alınan değerlerin korunması ve uygun zamanlama
                   ile müşteri memnuniyetini ön planda tutuyoruz.
                 </p>
 
-                <Link
-                  href="/hizmetler"
-                  className="group inline-flex items-center gap-2 text-brand font-semibold hover:gap-3 transition-all duration-300 mb-10"
-                >
-                  Tüm Hizmetleri Gör
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
+                <div className="flex flex-wrap gap-4 mb-10">
+                  <Link
+                    href="/hakkimizda"
+                    className="btn-primary shine-effect"
+                  >
+                    <span>Devamını Gör</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                  </Link>
+                  <Link
+                    href="/hizmetler"
+                    className="btn-outline"
+                  >
+                    <span>Tüm Hizmetleri Gör</span>
+                  </Link>
+                </div>
 
                 {/* Feature grid 2x2 */}
                 <div className="grid grid-cols-2 gap-4">
@@ -791,7 +812,7 @@ export default function Home() {
                         <ServiceIcon name={feat.icon} />
                       </div>
                       <h4 className="font-[family-name:var(--font-syne)] font-bold text-sm text-black/80 mb-1">{feat.title}</h4>
-                      <p className="text-xs text-black/35 leading-relaxed">{feat.desc}</p>
+                      <p className="text-xs text-black/55 leading-relaxed">{feat.desc}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -805,7 +826,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════
             PROCESS — How It Works
             ═══════════════════════════════════════════════════════ */}
-        <section className="py-28 lg:py-40 bg-white relative overflow-hidden">
+        <section className="py-28 lg:py-40 bg-surface-2 relative overflow-hidden">
           <div className="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full bg-brand/[0.02] blur-[120px] pointer-events-none animate-aurora" />
 
           <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
@@ -814,10 +835,10 @@ export default function Home() {
               <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.1}>
                 <div className="heading-side-line">
                   <span className="section-label mb-6 block">Nasıl Çalışıyoruz</span>
-                  <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl text-black font-bold leading-[1.05] mb-6">
+                  <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-[1.05] mb-6">
                     3 adımda <em className="gradient-text not-italic">sigorta çözümü</em>
                   </h2>
-                  <p className="text-black/40 text-lg leading-relaxed mb-0 glass-block">
+                  <p className="text-black/60 text-lg leading-relaxed mb-0 glass-block">
                     Sigorta sürecinizi en verimli şekilde yönetmek için profesyonel bir yaklaşım izliyoruz.
                   </p>
                 </div>
@@ -839,7 +860,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-black/80 text-base mb-1">{step.title}</h3>
-                        <p className="text-sm text-black/35">{step.desc}</p>
+                        <p className="text-sm text-black/55">{step.desc}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -870,10 +891,10 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-black/80 text-sm font-semibold">Poliçe Onaylandı</p>
-                      <p className="text-black/30 text-xs">Az önce</p>
+                      <p className="text-black/50 text-xs">Az önce</p>
                     </div>
                   </div>
-                  <span className="glass-capsule-gold !py-1.5 !px-3 !text-xs !rounded-lg text-black/40">Kasko sigortanız başarıyla düzenlendi.</span>
+                  <span className="glass-capsule-gold !py-1.5 !px-3 !text-xs !rounded-lg text-black/60">Kasko sigortanız başarıyla düzenlendi.</span>
                 </motion.div>
 
                 {/* Corner accents */}
@@ -889,8 +910,8 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════
             BRAND REVEAL — Scroll-driven partners section
             ═══════════════════════════════════════════════════════ */}
-        <section ref={brandRef} className="relative" style={{ height: "160vh" }}>
-          <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-surface-warm">
+        <section ref={brandRef} className="relative h-auto md:h-[180vh]">
+          <div className="py-20 md:py-0 md:sticky md:top-0 md:h-screen flex items-center justify-center overflow-hidden bg-surface-warm">
             {/* Ambient glow orbs */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-[20%] right-[8%] w-[500px] h-[500px] rounded-full bg-brand/[0.03] blur-[150px]" />
@@ -906,7 +927,7 @@ export default function Home() {
                   </svg>
                   Çözüm Ortaklarımız
                 </span>
-                <h2 className="font-[family-name:var(--font-syne)] text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-black">
+                <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-black">
                   Güçlü{" "}
                   <span className="gradient-text">Çözüm Ortaklarımız</span>
                 </h2>
@@ -914,65 +935,126 @@ export default function Home() {
 
               <motion.p
                 style={{ opacity: brandSubOpacity }}
-                className="text-center text-lg text-black/40 max-w-2xl mx-auto mb-10 glass-block"
+                className="text-center text-lg text-black/60 max-w-2xl mx-auto mb-10 glass-block"
               >
                 <span className="glass-capsule-gold !py-1 !px-3 !text-sm !rounded-lg text-brand-dark font-medium">36+</span> sigorta şirketi ile güçlü iş birliği yaparak müşterilerimize en kaliteli hizmeti sunuyoruz.
               </motion.p>
 
-              {/* Center glow element */}
-              <div className="relative" style={{ minHeight: "340px" }}>
-                <motion.div
-                  style={{
-                    scale: brandGlowScale,
-                    opacity: brandGlowOpacity,
-                  }}
-                  className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-                >
-                  <div className="relative">
-                    <div className="w-40 h-40 rounded-full bg-gradient-to-br from-brand/30 to-brand-light/20 blur-[40px]" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-20 h-20 text-brand/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={0.8}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                      </svg>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Partner grid */}
+              {/* Partner grid + detail panel */}
+              <div className="relative">
                 <motion.div
                   style={{ opacity: brandGridOpacity, scale: brandGridScale, y: brandGridY }}
-                  className="partner-grid relative z-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
                 >
-                  {partners.map((partner, i) => (
-                    <div
-                      key={partner.name}
-                      className="partner-card group relative flex flex-col items-center justify-center rounded-2xl border border-black/[0.06] bg-white cursor-default"
-                      style={{ transitionDelay: `${i * 40}ms` }}
-                    >
-                      {/* Logo */}
-                      <div className="py-7 px-5 flex items-center justify-center w-full">
-                        <Image
-                          src={partner.logo}
-                          alt={partner.name}
-                          width={130}
-                          height={55}
-                          className="object-contain max-h-[42px] grayscale opacity-40 transition-all duration-500"
-                          unoptimized
-                        />
+                  {/* Grid */}
+                  <div className="partner-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-5 mb-6">
+                    {partners.map((partner, i) => (
+                      <div
+                        key={partner.name}
+                        onClick={() => setActivePartner(activePartner === i ? null : i)}
+                        className={`partner-card group relative flex flex-col items-center justify-center rounded-2xl border cursor-pointer shadow-sm transition-all duration-500 ${
+                          activePartner === i
+                            ? "border-brand/40 bg-gradient-to-b from-white to-surface-warm ring-2 ring-brand/20 shadow-lg shadow-brand/10 scale-[1.02]"
+                            : "border-black/[0.08] bg-gradient-to-b from-white to-surface-2"
+                        }`}
+                        style={{ transitionDelay: `${i * 40}ms` }}
+                      >
+                        <div className="py-8 px-6 flex items-center justify-center w-full">
+                          <Image
+                            src={partner.logo}
+                            alt={partner.name}
+                            width={130}
+                            height={55}
+                            className={`object-contain max-h-[48px] transition-all duration-500 ${
+                              activePartner === i
+                                ? "grayscale-0 opacity-100"
+                                : "grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
+                            }`}
+                            unoptimized
+                          />
+                        </div>
+                        <div className="absolute bottom-3 left-0 right-0 text-center px-2">
+                          <p className={`text-[10px] font-semibold transition-colors duration-500 tracking-wide uppercase ${
+                            activePartner === i ? "text-brand-dark" : "text-black/40 group-hover:text-brand-dark"
+                          }`}>{partner.name}</p>
+                        </div>
+                        {/* Active indicator */}
+                        {activePartner === i && (
+                          <motion.div
+                            layoutId="partner-indicator"
+                            className="absolute -bottom-[13px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white border-b border-r border-brand/20 z-20"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
                       </div>
-                      {/* Description text — visible only on hover */}
-                      <div className="absolute bottom-2 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 px-2">
-                        <p className="text-[9px] font-medium text-brand-dark/70 leading-tight">{partner.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  {/* Animated detail panel */}
+                  <AnimatePresence mode="wait">
+                    {activePartner !== null && (
+                      <motion.div
+                        key={activePartner}
+                        initial={{ opacity: 0, height: 0, y: -10 }}
+                        animate={{ opacity: 1, height: "auto", y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: EASE }}
+                        className="overflow-hidden"
+                      >
+                        <div className="bento-card p-5 sm:p-6 md:p-8 bg-white">
+                          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+                            {/* Logo + name */}
+                            <div className="flex-shrink-0 flex items-center gap-4">
+                              <div className="w-16 h-16 rounded-xl bg-surface-2 border border-black/[0.06] flex items-center justify-center p-2">
+                                <Image
+                                  src={partners[activePartner].logo}
+                                  alt={partners[activePartner].name}
+                                  width={56}
+                                  height={40}
+                                  className="object-contain max-h-[36px]"
+                                  unoptimized
+                                />
+                              </div>
+                              <div>
+                                <h4 className="font-[family-name:var(--font-syne)] text-lg font-bold text-black">{partners[activePartner].name}</h4>
+                                <span className="glass-capsule-gold !py-0.5 !px-2.5 !text-[10px] !rounded-md text-brand-dark font-semibold uppercase tracking-wider">{partners[activePartner].desc}</span>
+                              </div>
+                            </div>
+
+                            {/* Description */}
+                            <div className="flex-1 min-w-0">
+                              <motion.p
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.15, duration: 0.5, ease: EASE }}
+                                className="text-black/65 leading-relaxed mb-4"
+                              >
+                                {partners[activePartner].work}
+                              </motion.p>
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.25, duration: 0.4, ease: EASE }}
+                                className="flex flex-wrap gap-2"
+                              >
+                                {partners[activePartner].tags.map((tag) => (
+                                  <span key={tag} className="px-3 py-1 bg-brand/[0.06] border border-brand/15 text-brand-dark text-xs font-medium rounded-full">
+                                    {tag}
+                                  </span>
+                                ))}
+                              </motion.div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               </div>
 
               {/* Bottom stat line */}
               <motion.div
                 style={{ opacity: brandGridOpacity }}
-                className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-black/35"
+                className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-black/55"
               >
                 <span className="glass-capsule !py-2 !px-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand" />
@@ -1005,7 +1087,7 @@ export default function Home() {
               <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.1}>
                 <div className="heading-side-line mb-12">
                   <span className="section-label mb-6 block">Müşteri Yorumları</span>
-                  <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl text-black font-bold leading-[1.05]">
+                  <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-[1.05]">
                     Müşterilerimiz <em className="gradient-text not-italic">ne diyor?</em>
                   </h2>
                 </div>
@@ -1020,7 +1102,7 @@ export default function Home() {
                   >
                     <div className="relative">
                       <svg className="absolute -top-4 -left-2 w-12 h-12 text-brand/10" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                      <p className="text-black/50 text-lg leading-relaxed mb-8 pl-8 glass-block">
+                      <p className="text-black/65 text-lg leading-relaxed mb-8 pl-8 glass-block">
                         {testimonials[activeTestimonial].text}
                       </p>
                       <div className="flex items-center gap-4 pl-8">
@@ -1035,7 +1117,7 @@ export default function Home() {
                         </div>
                         <div>
                           <p className="font-semibold text-black/80">{testimonials[activeTestimonial].name}</p>
-                          <span className="glass-capsule-gold !py-0.5 !px-2.5 !text-xs !rounded-md text-black/40 mt-1">{testimonials[activeTestimonial].role}</span>
+                          <span className="glass-capsule-gold !py-0.5 !px-2.5 !text-xs !rounded-md text-black/60 mt-1">{testimonials[activeTestimonial].role}</span>
                         </div>
                       </div>
                     </div>
@@ -1068,7 +1150,7 @@ export default function Home() {
                   className="absolute top-8 -right-4 glass-card-deep rounded-2xl p-5 shadow-xl"
                 >
                   <span className="font-[family-name:var(--font-syne)] text-3xl font-bold gradient-text block leading-none">%98</span>
-                  <span className="text-black/40 text-xs font-semibold">Memnuniyet</span>
+                  <span className="text-black/60 text-xs font-semibold">Memnuniyet</span>
                 </motion.div>
                 <div className="corner-accent-tl" />
                 <div className="corner-accent-br" />
@@ -1091,7 +1173,7 @@ export default function Home() {
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="text-center mb-16 heading-decor">
               <div className="heading-ring" />
               <span className="section-label justify-center mb-5 block">Neden Nexus?</span>
-              <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl text-black font-bold leading-tight">
+              <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-tight">
                 Farkımızı <em className="gradient-text not-italic">keşfedin</em>
               </h2>
             </motion.div>
@@ -1113,7 +1195,7 @@ export default function Home() {
                         <ServiceIcon name={item.icon} />
                       </div>
                       <h3 className="font-semibold text-black/80 text-lg mb-2 group-hover:text-brand transition-colors">{item.title}</h3>
-                      <p className="text-sm text-black/35 leading-relaxed group-hover:text-black/50 transition-colors">{item.desc}</p>
+                      <p className="text-sm text-black/55 leading-relaxed group-hover:text-black/70 transition-colors">{item.desc}</p>
                     </div>
                   </TiltCard>
                 </motion.div>
@@ -1143,11 +1225,11 @@ export default function Home() {
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="heading-decor">
               <div className="heading-ring" />
               <span className="section-label justify-center mb-8 block">Hemen Başlayın</span>
-              <h2 className="font-[family-name:var(--font-syne)] text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold mb-6 leading-[1.05]">
+              <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold mb-6 leading-[1.05]">
                 Sigorta teklifinizi<br />
                 <span className="gradient-text">hemen alın</span>
               </h2>
-              <p className="text-black/40 text-lg max-w-md mx-auto mb-10 leading-relaxed glass-block">
+              <p className="text-black/60 text-lg max-w-md mx-auto mb-10 leading-relaxed glass-block">
                 Size en uygun sigorta paketini birlikte belirleyelim. <span className="glass-capsule-gold !py-1 !px-3 !text-sm !rounded-lg text-brand-dark font-medium">Ücretsiz danışmanlık</span> için hemen arayın.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
@@ -1181,11 +1263,11 @@ export default function Home() {
                 </svg>
                 İletişim
               </span>
-              <h2 className="font-[family-name:var(--font-syne)] text-4xl lg:text-5xl xl:text-6xl text-black font-extrabold tracking-tight">
+              <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-black font-extrabold tracking-tight">
                 Bizimle{" "}
                 <span className="gradient-text">İletişime Geçin</span>
               </h2>
-              <p className="mt-6 max-w-2xl mx-auto text-lg text-black/40 glass-block inline-block">
+              <p className="mt-6 max-w-2xl mx-auto text-lg text-black/60 glass-block inline-block">
                 Sigorta ihtiyaçlarınız hakkında bilgi almak veya teklif talep etmek için bize ulaşın.
               </p>
             </motion.div>
@@ -1205,14 +1287,14 @@ export default function Home() {
                   <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="group">
-                        <label className="block text-[13px] font-medium text-black/50 mb-2 group-focus-within:text-brand transition-colors duration-300">Ad Soyad</label>
+                        <label className="block text-[13px] font-medium text-black/65 mb-2 group-focus-within:text-brand transition-colors duration-300">Ad Soyad</label>
                         <div className="input-focus-ring rounded-xl">
                           <input type="text" placeholder="Adınız Soyadınız"
                             className="w-full px-5 py-3.5 rounded-xl bg-surface-2 border border-black/[0.06] text-black placeholder:text-black/25 focus:outline-none focus:border-brand/40 focus:bg-white transition-all duration-300" />
                         </div>
                       </div>
                       <div className="group">
-                        <label className="block text-[13px] font-medium text-black/50 mb-2 group-focus-within:text-brand transition-colors duration-300">Telefon</label>
+                        <label className="block text-[13px] font-medium text-black/65 mb-2 group-focus-within:text-brand transition-colors duration-300">Telefon</label>
                         <div className="input-focus-ring rounded-xl">
                           <input type="tel" placeholder="+90 5XX XXX XX XX"
                             className="w-full px-5 py-3.5 rounded-xl bg-surface-2 border border-black/[0.06] text-black placeholder:text-black/25 focus:outline-none focus:border-brand/40 focus:bg-white transition-all duration-300" />
@@ -1220,9 +1302,9 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="group">
-                      <label className="block text-[13px] font-medium text-black/50 mb-2 group-focus-within:text-brand transition-colors duration-300">Sigorta Türü</label>
+                      <label className="block text-[13px] font-medium text-black/65 mb-2 group-focus-within:text-brand transition-colors duration-300">Sigorta Türü</label>
                       <div className="input-focus-ring rounded-xl">
-                        <select className="w-full px-5 py-3.5 rounded-xl bg-surface-2 border border-black/[0.06] text-black/50 focus:outline-none focus:border-brand/40 focus:bg-white transition-all duration-300 appearance-none cursor-pointer"
+                        <select className="w-full px-5 py-3.5 rounded-xl bg-surface-2 border border-black/[0.06] text-black/65 focus:outline-none focus:border-brand/40 focus:bg-white transition-all duration-300 appearance-none cursor-pointer"
                           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23D4A012' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 16px center", backgroundSize: "12px 8px" }}>
                           <option value="">Seçiniz</option>
                           {services.map(s => <option key={s.slug}>{s.title}</option>)}
@@ -1230,7 +1312,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="group">
-                      <label className="block text-[13px] font-medium text-black/50 mb-2 group-focus-within:text-brand transition-colors duration-300">Mesajınız</label>
+                      <label className="block text-[13px] font-medium text-black/65 mb-2 group-focus-within:text-brand transition-colors duration-300">Mesajınız</label>
                       <div className="input-focus-ring rounded-xl">
                         <textarea rows={4} placeholder="Mesajınızı yazın..."
                           className="w-full px-5 py-3.5 rounded-xl bg-surface-2 border border-black/[0.06] text-black placeholder:text-black/25 focus:outline-none focus:border-brand/40 focus:bg-white transition-all duration-300 resize-none" />
@@ -1267,11 +1349,11 @@ export default function Home() {
                           {item.icon}
                         </div>
                         <div>
-                          <span className="block text-xs font-medium text-black/35 uppercase tracking-wider mb-1">{item.label}</span>
+                          <span className="block text-xs font-medium text-black/55 uppercase tracking-wider mb-1">{item.label}</span>
                           {item.href ? (
                             <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} className="text-sm text-black/60 hover:text-brand transition-colors duration-300">{item.value}</a>
                           ) : (
-                            <p className="text-sm text-black/50 leading-relaxed whitespace-pre-line">{item.value}</p>
+                            <p className="text-sm text-black/65 leading-relaxed whitespace-pre-line">{item.value}</p>
                           )}
                         </div>
                       </div>
@@ -1282,7 +1364,7 @@ export default function Home() {
                 {/* Social media */}
                 <motion.div variants={fadeRight} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.8}>
                   <div className="bento-card p-6 bg-white">
-                    <span className="block text-xs font-medium text-black/35 uppercase tracking-wider mb-4">Sosyal Medya</span>
+                    <span className="block text-xs font-medium text-black/55 uppercase tracking-wider mb-4">Sosyal Medya</span>
                     <div className="flex gap-3">
                       {[
                         { label: "Instagram", href: "https://instagram.com/nexussigorta", icon: <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/> },

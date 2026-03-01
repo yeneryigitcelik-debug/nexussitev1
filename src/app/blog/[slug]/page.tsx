@@ -95,10 +95,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* Tags */}
               <div className="mt-16 pt-8 border-t border-black/[0.06]">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm text-black/30 mr-2">Etiketler:</span>
+                  <span className="text-sm text-black/50 mr-2">Etiketler:</span>
                   {post.tags.map((tag) => (
                     <span key={tag}
-                      className="px-3 py-1.5 bg-black/[0.03] border border-black/[0.06] text-black/40 text-xs font-medium rounded-full">
+                      className="px-3 py-1.5 bg-black/[0.03] border border-black/[0.06] text-black/60 text-xs font-medium rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -120,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                       <p className="text-xs text-black/35">Sigorta Danışmanı</p>
                     </div>
                   </div>
-                  <p className="text-sm text-black/40 leading-relaxed">
+                  <p className="text-sm text-black/60 leading-relaxed">
                     10 yılı aşkın sektör deneyimimizle, bireysel ve kurumsal sigorta ihtiyaçlarınıza en uygun çözümler sunuyoruz.
                   </p>
                 </div>
@@ -161,7 +161,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <h5 className="text-sm font-medium text-black/70 group-hover:text-brand transition-colors leading-snug line-clamp-2">
                               {rp.title}
                             </h5>
-                            <p className="text-xs text-black/30 mt-1">{rp.readTime} okuma</p>
+                            <p className="text-xs text-black/50 mt-1">{rp.readTime} okuma</p>
                           </div>
                         </Link>
                       ))}
@@ -199,8 +199,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <h3 className="font-semibold text-black/80 mb-1 group-hover:text-brand transition-colors leading-snug">
                       {rp.title}
                     </h3>
-                    <p className="text-sm text-black/40 line-clamp-2 mb-3">{rp.excerpt}</p>
-                    <div className="flex items-center justify-between text-xs text-black/30">
+                    <p className="text-sm text-black/60 line-clamp-2 mb-3">{rp.excerpt}</p>
+                    <div className="flex items-center justify-between text-xs text-black/50">
                       <span>{formatDate(rp.date)}</span>
                       <span>{rp.readTime} okuma</span>
                     </div>

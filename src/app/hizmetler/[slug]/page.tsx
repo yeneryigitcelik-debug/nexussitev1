@@ -26,7 +26,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <main>
       {/* Hero */}
       <section className="relative pt-0 pb-0 overflow-hidden">
-        <div className="relative h-[500px] md:h-[560px]">
+        <div className="relative h-[320px] sm:h-[400px] md:h-[560px]">
           <Image src={svc.image} alt={svc.title} fill className="object-cover" priority unoptimized />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </span>
               </div>
 
-              <h1 className="font-[family-name:var(--font-syne)] text-4xl md:text-5xl lg:text-6xl text-white leading-[1.02] font-bold">
+              <h1 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] font-bold">
                 {svc.title}
               </h1>
             </div>
@@ -158,7 +158,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     <ServiceIcon name={r.icon} />
                   </div>
                   <h3 className="font-semibold text-black/80 mb-1 group-hover:text-brand transition-colors">{r.title}</h3>
-                  <p className="text-sm text-black/40 line-clamp-2">{r.description}</p>
+                  <p className="text-sm text-black/60 line-clamp-2">{r.description}</p>
                 </div>
               </Link>
             ))}
