@@ -2,6 +2,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts, getPostBySlug, getPostsByCategory } from "@/lib/blog";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  SITE_URL,
+  createArticleMetadata,
+  createArticleJsonLd,
+  createBreadcrumbJsonLd,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -11,10 +18,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Yazı Bulunamadı" };
-  return {
-    title: `${post.title} — Nexus Sigorta Blog`,
+  return createArticleMetadata({
+    title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    image: post.image,
+    date: post.date,
+    author: post.author,
+    tags: post.tags,
+    category: post.category,
+  });
 }
 
 function formatDate(dateStr: string) {
@@ -36,6 +49,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <main>
+      <JsonLd data={createArticleJsonLd(post)} />
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: "Ana Sayfa", url: SITE_URL },
+          { name: "Blog", url: `${SITE_URL}/blog` },
+          { name: post.title, url: `${SITE_URL}/blog/${post.slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-0 pb-0 overflow-hidden">
         <div className="relative h-[400px] md:h-[500px]">

@@ -3,6 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { services, getServiceBySlug } from "@/lib/services";
 import { ServiceIcon } from "@/components/ServiceIcon";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  createPageMetadata,
+  createServiceJsonLd,
+  createBreadcrumbJsonLd,
+  SITE_URL,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -12,7 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const svc = getServiceBySlug(slug);
   if (!svc) return { title: "Hizmet Bulunamadı" };
-  return { title: `${svc.title} — Nexus Sigorta`, description: svc.description };
+  return createPageMetadata({
+    title: svc.title,
+    description: svc.description,
+    path: `/hizmetler/${svc.slug}`,
+    ogImage: svc.image,
+    keywords: [svc.title, svc.shortTitle, "sigorta", svc.category === "kurumsal" ? "kurumsal sigorta" : "bireysel sigorta"],
+  });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -24,6 +37,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <main>
+      <JsonLd data={createServiceJsonLd(svc)} />
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: "Ana Sayfa", url: SITE_URL },
+          { name: "Hizmetler", url: `${SITE_URL}/hizmetler` },
+          { name: svc.title, url: `${SITE_URL}/hizmetler/${svc.slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-0 pb-0 overflow-hidden">
         <div className="relative h-[320px] sm:h-[400px] md:h-[560px]">

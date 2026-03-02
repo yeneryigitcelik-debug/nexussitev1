@@ -17,7 +17,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Hizmetler", href: "/hizmetler" },
   { label: "Çözüm Merkezi", href: "/cozum-merkezi" },
   { label: "Blog", href: "/blog" },
-  { label: "İletişim", href: "#contact" },
+  { label: "İletişim", href: "/#contact" },
 ];
 
 const PHONE_NUMBER = "+905332516773";
@@ -125,7 +125,7 @@ export function Navbar() {
             : "bg-white"
         }`}
       >
-        <nav className="mx-auto flex h-[68px] sm:h-[68px] sm:h-[80px] max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-10" aria-label="Ana gezinme">
+        <nav className="mx-auto flex h-[68px] sm:h-[80px] max-w-7xl items-center justify-between px-4 sm:px-8 lg:px-10" aria-label="Ana gezinme">
           <Link href="/" className="relative z-50 flex shrink-0 items-center" aria-label="Nexus Sigorta ana sayfa">
             <Image src="/nexus-logo-master.png" alt="Nexus Sigorta" width={280} height={120} className="h-[40px] sm:h-[52px] w-auto" priority />
           </Link>
@@ -145,7 +145,7 @@ export function Navbar() {
               <PhoneIcon className="h-[16px] w-[16px]" />
               <span className="hidden xl:inline">0533 251 67 73</span>
             </a>
-            <Link href="#contact"
+            <Link href="/#contact"
               className="shine-effect inline-flex h-10 items-center rounded-full bg-brand px-6 text-[13px] font-semibold text-white tracking-wide shadow-[0_2px_10px_rgba(212,160,18,0.25)] transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(212,160,18,0.35)]">
               Teklif Al
             </Link>
@@ -189,7 +189,7 @@ export function Navbar() {
                 <div className="my-4 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
 
                 <motion.div variants={mobileLinkVariants}>
-                  <Link href="#contact" onClick={closeMobile}
+                  <Link href="/#contact" onClick={closeMobile}
                     className="shine-effect flex h-12 w-full items-center justify-center rounded-full bg-brand text-[15px] font-semibold text-white transition-all duration-300 hover:bg-brand-light">
                     Teklif Al
                   </Link>

@@ -1,0 +1,16 @@
+{
+  "name": "Nexus Sigorta",
+  "short_name": "Nexus",
+  "description": "Nexus Sigorta Aracılık Hizmetleri — Güvenliğiniz İçin Özel Çalışır",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#D4A012",
+  "icons": [
+    {
+      "src": "/nexuslogoseffaf.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

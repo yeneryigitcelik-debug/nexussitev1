@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Çerez Politikası | Nexus Sigorta",
+export const metadata = createPageMetadata({
+  title: "Çerez Politikası",
   description:
     "Nexus Sigorta çerez politikası. Web sitemizde kullanılan çerezler hakkında bilgi.",
-};
+  path: "/cerez-politikasi",
+  noIndex: true,
+});
 
 export default function CerezPolitikasiPage() {
   return (

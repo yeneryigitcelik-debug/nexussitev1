@@ -173,7 +173,7 @@ export function Footer() {
       <div className="border-t border-black/[0.06]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 sm:flex-row lg:px-8">
           <p className="text-xs text-black/50">
-            &copy; 2024 Nexus Sigorta Aracılık Hizmetleri. Tüm hakları saklıdır.
+            &copy; {new Date().getFullYear()} Nexus Sigorta Aracılık Hizmetleri. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center gap-2 text-xs text-black/50">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand/50" />

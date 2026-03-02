@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "KVKK Aydınlatma Metni | Nexus Sigorta",
+export const metadata = createPageMetadata({
+  title: "KVKK Aydınlatma Metni",
   description:
     "Nexus Sigorta 6698 Sayılı Kişisel Verilerin Korunması Kanunu kapsamında müşteri aydınlatma metni.",
-};
+  path: "/kvkk",
+  noIndex: true,
+});
 
 export default function KVKKPage() {
   return (

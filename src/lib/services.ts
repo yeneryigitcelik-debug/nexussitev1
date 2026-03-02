@@ -197,7 +197,7 @@ export const partners: Partner[] = [
   },
   {
     name: "Sompo Sigorta",
-    logo: "/cozumortaklari/sompo_sigorta_logo_sm-1435e4bc-d (1).png",
+    logo: "/cozumortaklari/sompo-sigorta-logo.png",
     desc: "Yetkili Acente",
     work: "Japon kökenli Sompo Sigorta ile kasko, trafik ve işyeri sigortalarında kapsamlı teminatlar sunuyoruz. Uluslararası standartlarda hizmet kalitesiyle müşterilerimizin yanındayız.",
     tags: ["Kasko", "Trafik", "İşyeri"],
@@ -232,10 +232,10 @@ export const partners: Partner[] = [
   },
   {
     name: "Diğer",
-    logo: "/cozumortaklari/WhatsApp-Image-2024-11-14-at-21.10.27-1024x665.jpeg",
+    logo: "/cozumortaklari/diger-ortaklar.jpeg",
     desc: "Yetkili Acente",
     work: "30'dan fazla sigorta şirketi ile çalışarak müşterilerimize en geniş ürün yelpazesini ve en rekabetçi fiyatları sunuyoruz. Her ihtiyaca özel çözüm üretiyoruz.",
-    tags: ["30+ Şirket", "Geniş Yelpazer", "Özel Çözüm"],
+    tags: ["30+ Şirket", "Geniş Yelpaze", "Özel Çözüm"],
   },
 ];
 

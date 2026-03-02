@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Gizlilik Politikası | Nexus Sigorta",
+export const metadata = createPageMetadata({
+  title: "Gizlilik Politikası",
   description:
     "Nexus Sigorta gizlilik politikası. Kişisel verilerinizin nasıl toplandığı, işlendiği ve korunduğu hakkında bilgi.",
-};
+  path: "/gizlilik-politikasi",
+  noIndex: true,
+});
 
 export default function GizlilikPolitikasiPage() {
   return (

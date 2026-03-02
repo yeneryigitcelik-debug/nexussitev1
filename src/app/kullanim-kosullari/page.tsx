@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Kullanım Koşulları | Nexus Sigorta",
+export const metadata = createPageMetadata({
+  title: "Kullanım Koşulları",
   description:
     "Nexus Sigorta web sitesi kullanım koşulları ve şartları.",
-};
+  path: "/kullanim-kosullari",
+  noIndex: true,
+});
 
 export default function KullanimKosullariPage() {
   return (
