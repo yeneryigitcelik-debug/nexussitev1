@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { JsonLd } from "@/components/JsonLd";
+import { TransitionOverlay } from "@/components/TransitionOverlay";
 import {
   SITE_NAME,
   SITE_TAGLINE,
@@ -105,6 +106,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         <JsonLd data={[createOrganizationJsonLd(), createLocalBusinessJsonLd()]} />
         <div className="grain" />
+        <TransitionOverlay />
         <Navbar />
         {children}
         <Footer />

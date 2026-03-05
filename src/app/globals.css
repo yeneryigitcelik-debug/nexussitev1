@@ -962,6 +962,10 @@ section[id] {
   }
 }
 
+/* ─── Scrollbar Hide Utility ─── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* Touch devices — disable hover-based effects */
 @media (hover: none) {
   .partner-grid:hover .partner-card {

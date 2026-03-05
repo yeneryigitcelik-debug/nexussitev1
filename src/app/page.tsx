@@ -6,6 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { services, partners } from "@/lib/services";
 import { ServiceIcon } from "@/components/ServiceIcon";
+import { MagneticButton } from "@/components/interactions/MagneticButton";
+import { ScrambleText } from "@/components/interactions/ScrambleText";
+import { OdometerCounter } from "@/components/interactions/OdometerCounter";
+import { LiquidBlob } from "@/components/interactions/LiquidBlob";
+import { SplitText } from "@/components/animations/SplitText";
+import { ParallaxLayer } from "@/components/animations/ParallaxLayer";
+import { ScrollMorph } from "@/components/animations/ScrollMorph";
+
 
 type BezierDef = [number, number, number, number];
 const EASE: BezierDef = [0.22, 1, 0.36, 1];
@@ -459,13 +467,17 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 1 }}
                   className="mt-10 flex flex-col sm:flex-row items-start gap-4"
                 >
-                  <Link href="/hizmetler" className="btn-primary shine-effect">
-                    <span>Hizmetleri Keşfet</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                  </Link>
-                  <a href="#contact" className="btn-outline">
-                    <span>Teklif Alın</span>
-                  </a>
+                  <MagneticButton strength={0.3}>
+                    <Link href="/hizmetler" className="btn-primary shine-effect">
+                      <span>Hizmetleri Keşfet</span>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </Link>
+                  </MagneticButton>
+                  <MagneticButton strength={0.3}>
+                    <a href="#contact" className="btn-outline">
+                      <span>Teklif Alın</span>
+                    </a>
+                  </MagneticButton>
                 </motion.div>
               </div>
 
@@ -547,7 +559,7 @@ export default function Home() {
                       </svg>
                     </div>
                     <span className="font-[family-name:var(--font-syne)] text-4xl md:text-5xl font-extrabold gradient-text tabular-nums">
-                      <Counter target={s.val} suffix={s.suffix} />
+                      <OdometerCounter target={s.val} suffix={s.suffix} />
                     </span>
                     <span className="text-xs text-black/35 font-medium tracking-widest uppercase glass-capsule !py-1.5 !px-4 !gap-0">
                       {s.label}
@@ -650,14 +662,17 @@ export default function Home() {
           <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
 
           {/* Ambient orbs */}
-          <div className="absolute top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-brand/[0.03] blur-[150px] pointer-events-none" style={{ animation: "aurora-slow 18s ease-in-out infinite" }} />
+          <ParallaxLayer speed={0.2} className="absolute top-[-200px] right-[-200px] pointer-events-none">
+            <div className="w-[600px] h-[600px] rounded-full bg-brand/[0.03] blur-[150px]" style={{ animation: "aurora-slow 18s ease-in-out infinite" }} />
+          </ParallaxLayer>
+          <ScrollMorph className="absolute bottom-[-100px] left-[-50px] pointer-events-none" size={400} color="rgba(212, 160, 18, 0.04)" />
 
           <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="text-center mb-16 heading-decor">
               <div className="heading-ring" />
-              <span className="section-label justify-center mb-5 block">Hizmetlerimiz</span>
+              <span className="section-label justify-center mb-5 block"><ScrambleText text="Hizmetlerimiz" trigger="inView" /></span>
               <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-black font-bold leading-tight mb-4">
-                Size özel <em className="gradient-text not-italic">sigorta çözümleri</em>
+                <SplitText mode="words" delay={0.1}>Size özel sigorta çözümleri</SplitText>
               </h2>
               <p className="text-black/60 max-w-lg mx-auto glass-block inline-block">Kurumsal ve bireysel tüm sigorta ihtiyaçlarınız için kapsamlı paketler sunuyoruz.</p>
             </motion.div>
@@ -688,7 +703,9 @@ export default function Home() {
             ABOUT — Ephorsite-style with floating badges
             ═══════════════════════════════════════════════════════ */}
         <section id="about" className="py-28 lg:py-40 bg-white scroll-mt-20 relative overflow-hidden">
-          <div className="absolute bottom-0 right-0 w-[700px] h-[700px] rounded-full bg-brand/[0.03] blur-[150px] pointer-events-none" />
+          <ParallaxLayer speed={0.15} className="absolute bottom-0 right-0 pointer-events-none">
+            <div className="w-[700px] h-[700px] rounded-full bg-brand/[0.03] blur-[150px]" />
+          </ParallaxLayer>
 
           <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -834,9 +851,9 @@ export default function Home() {
               {/* Left — Content */}
               <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.1}>
                 <div className="heading-side-line">
-                  <span className="section-label mb-6 block">Nasıl Çalışıyoruz</span>
+                  <span className="section-label mb-6 block"><ScrambleText text="Nasıl Çalışıyoruz" trigger="inView" /></span>
                   <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-[1.05] mb-6">
-                    3 adımda <em className="gradient-text not-italic">sigorta çözümü</em>
+                    <SplitText mode="words" delay={0.1}>3 adımda sigorta çözümü</SplitText>
                   </h2>
                   <p className="text-black/60 text-lg leading-relaxed mb-0 glass-block">
                     Sigorta sürecinizi en verimli şekilde yönetmek için profesyonel bir yaklaşım izliyoruz.
@@ -1086,7 +1103,7 @@ export default function Home() {
               {/* Left — Content */}
               <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.1}>
                 <div className="heading-side-line mb-12">
-                  <span className="section-label mb-6 block">Müşteri Yorumları</span>
+                  <span className="section-label mb-6 block"><ScrambleText text="Müşteri Yorumları" trigger="inView" /></span>
                   <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-[1.05]">
                     Müşterilerimiz <em className="gradient-text not-italic">ne diyor?</em>
                   </h2>
@@ -1172,7 +1189,7 @@ export default function Home() {
           <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="text-center mb-16 heading-decor">
               <div className="heading-ring" />
-              <span className="section-label justify-center mb-5 block">Neden Nexus?</span>
+              <span className="section-label justify-center mb-5 block"><ScrambleText text="Neden Nexus?" trigger="inView" /></span>
               <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl lg:text-5xl text-black font-bold leading-tight">
                 Farkımızı <em className="gradient-text not-italic">keşfedin</em>
               </h2>
@@ -1190,13 +1207,15 @@ export default function Home() {
                 <motion.div key={i} variants={scaleIn}
                   initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i * 0.08}>
                   <TiltCard>
-                    <div className="group glass-card rounded-2xl p-7 h-full">
-                      <div className="w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center text-brand mb-5 group-hover:bg-brand group-hover:text-white group-hover:border-brand group-hover:scale-110 transition-all duration-500">
-                        <ServiceIcon name={item.icon} />
+                    <LiquidBlob className="h-full">
+                      <div className="group glass-card rounded-2xl p-7 h-full">
+                        <div className="w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center text-brand mb-5 group-hover:bg-brand group-hover:text-white group-hover:border-brand group-hover:scale-110 transition-all duration-500">
+                          <ServiceIcon name={item.icon} />
+                        </div>
+                        <h3 className="font-semibold text-black/80 text-lg mb-2 group-hover:text-brand transition-colors">{item.title}</h3>
+                        <p className="text-sm text-black/55 leading-relaxed group-hover:text-black/70 transition-colors">{item.desc}</p>
                       </div>
-                      <h3 className="font-semibold text-black/80 text-lg mb-2 group-hover:text-brand transition-colors">{item.title}</h3>
-                      <p className="text-sm text-black/55 leading-relaxed group-hover:text-black/70 transition-colors">{item.desc}</p>
-                    </div>
+                    </LiquidBlob>
                   </TiltCard>
                 </motion.div>
               ))}
@@ -1224,7 +1243,7 @@ export default function Home() {
           <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10 text-center">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} className="heading-decor">
               <div className="heading-ring" />
-              <span className="section-label justify-center mb-8 block">Hemen Başlayın</span>
+              <span className="section-label justify-center mb-8 block"><ScrambleText text="Hemen Başlayın" trigger="inView" /></span>
               <h2 className="font-[family-name:var(--font-syne)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold mb-6 leading-[1.05]">
                 Sigorta teklifinizi<br />
                 <span className="gradient-text">hemen alın</span>
@@ -1233,14 +1252,18 @@ export default function Home() {
                 Size en uygun sigorta paketini birlikte belirleyelim. <span className="glass-capsule-gold !py-1 !px-3 !text-sm !rounded-lg text-brand-dark font-medium">Ücretsiz danışmanlık</span> için hemen arayın.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <a href="tel:+905332516773" className="btn-primary shine-effect">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  <span>Hemen Arayın</span>
-                </a>
-                <a href="https://wa.me/905332516773" target="_blank" className="btn-outline">
-                  <span>WhatsApp ile Yazın</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                </a>
+                <MagneticButton strength={0.3}>
+                  <a href="tel:+905332516773" className="btn-primary shine-effect">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>Hemen Arayın</span>
+                  </a>
+                </MagneticButton>
+                <MagneticButton strength={0.3}>
+                  <a href="https://wa.me/905332516773" target="_blank" className="btn-outline">
+                    <span>WhatsApp ile Yazın</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                  </a>
+                </MagneticButton>
               </div>
             </motion.div>
           </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { MagneticButton } from "@/components/interactions/MagneticButton";
 
 interface NavLink {
   label: string;
@@ -132,9 +133,27 @@ export function Navbar() {
 
           {/* Desktop Links */}
           <div className="hidden items-center gap-1 lg:flex">
-            {NAV_LINKS.map((link) =>
-              renderLink(link, "relative px-4 py-2 text-[14px] font-medium text-black/50 transition-colors duration-200 hover:text-black")
-            )}
+            {NAV_LINKS.map((link) => {
+              const active = isActiveLink(link.href, pathname);
+              const isHash = link.href.startsWith("#");
+              const LinkTag = isHash ? "a" : Link;
+              return (
+                <LinkTag
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-[14px] font-medium transition-colors duration-200 hover:text-black ${active ? "!text-brand font-semibold" : "text-black/50"}`}
+                >
+                  {link.label}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full bg-brand"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </LinkTag>
+              );
+            })}
           </div>
 
           {/* Desktop Actions */}
@@ -145,10 +164,12 @@ export function Navbar() {
               <PhoneIcon className="h-[16px] w-[16px]" />
               <span className="hidden xl:inline">0533 251 67 73</span>
             </a>
-            <Link href="/#contact"
-              className="shine-effect inline-flex h-10 items-center rounded-full bg-brand px-6 text-[13px] font-semibold text-white tracking-wide shadow-[0_2px_10px_rgba(212,160,18,0.25)] transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(212,160,18,0.35)]">
-              Teklif Al
-            </Link>
+            <MagneticButton strength={0.3}>
+              <Link href="/#contact"
+                className="shine-effect inline-flex h-10 items-center rounded-full bg-brand px-6 text-[13px] font-semibold text-white tracking-wide shadow-[0_2px_10px_rgba(212,160,18,0.25)] transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(212,160,18,0.35)]">
+                Teklif Al
+              </Link>
+            </MagneticButton>
           </div>
 
           {/* Mobile Actions */}
